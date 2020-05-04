@@ -88,16 +88,51 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "Deuce state after each player scores three times"() {
         given: "Player one scores three times"
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
+            playerOneWonThreeTimes()
         and: "Player two scores three times"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            playerTwoWonThreeTimes()
         when: "I check the score"
             checkScore()
         then: "I should get 'Deuce'"
             "Deuce" == result
+    }
+
+    private void playerTwoWonThreeTimes() {
+        tennisGame.playerScore(PlayerNumber.TWO)
+        tennisGame.playerScore(PlayerNumber.TWO)
+        tennisGame.playerScore(PlayerNumber.TWO)
+    }
+
+    private void playerOneWonThreeTimes() {
+        tennisGame.playerScore(PlayerNumber.ONE)
+        tennisGame.playerScore(PlayerNumber.ONE)
+        tennisGame.playerScore(PlayerNumber.ONE)
+    }
+
+    def "Advantage for player one when he scores after deuce"() {
+        given: "There was a deuce"
+            deuce()
+        when: "Player one scores once after deuce"
+            tennisGame.playerScore(PlayerNumber.ONE)
+        and: "I check the score"
+            checkScore()
+        then: "I should get 'Advantage for Player One'"
+            "Advantage for Player One" == result
+    }
+
+    private void deuce() {
+        playerOneWonThreeTimes()
+        playerTwoWonThreeTimes()
+    }
+
+    def "Advantage for player two when he scores after deuce"() {
+        given: "There was a deuce"
+            deuce()
+        when: "Player two scores once after deuce"
+            tennisGame.playerScore(PlayerNumber.TWO)
+        and: "I check the score"
+            checkScore()
+        then: "I should get 'Advantage for Player Two'"
+            "Advantage for Player Two" == result
     }
 }

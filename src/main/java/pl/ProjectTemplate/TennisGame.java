@@ -9,6 +9,14 @@ public class TennisGame {
             return "Deuce";
         }
 
+        if (isAfterDeuce()) {
+            if(isAdvantageForPlayerOne()) {
+                return "Advantage for Player One";
+            }
+
+            return "Advantage for Player Two";
+        }
+
         if (playerOneScore > 3) {
             return "Player one won";
         } else if (playerTwoScore > 3) {
@@ -17,6 +25,7 @@ public class TennisGame {
 
         return playerOneScore > 0 || playerTwoScore > 0 ? buildResultString() : "Love all";
     }
+
 
     public void playerScore(PlayerNumber playerNumber) {
         switch (playerNumber) {
@@ -27,6 +36,13 @@ public class TennisGame {
                 playerTwoScore();
                 break;
         }
+    }
+    private boolean isAdvantageForPlayerOne() {
+        return playerOneScore - playerTwoScore == 1;
+    }
+
+    private boolean isAfterDeuce() {
+        return playerOneScore >= 3 && playerTwoScore >= 3;
     }
 
     private String buildResultString() {
