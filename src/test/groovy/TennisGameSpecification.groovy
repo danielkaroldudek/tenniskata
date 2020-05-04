@@ -135,4 +135,28 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
         then: "I should get 'Advantage for Player Two'"
             "Advantage for Player Two" == result
     }
+
+    def "Game won by player one after advantage"() {
+        given: "There was a deuce"
+            deuce()
+        and: "Player one scores twice"
+            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGame.playerScore(PlayerNumber.ONE)
+        when: "I check the score"
+            checkScore()
+        then: "I should get 'Player one won'"
+            "Player one won" == result
+    }
+
+    def "Game won by player two after advantage"() {
+        given: "There was a deuce"
+            deuce()
+        and: "Player two scores twice"
+            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGame.playerScore(PlayerNumber.TWO)
+        when: "I check the score"
+            checkScore()
+        then: "I should get 'Player one won'"
+            "Player two won" == result
+    }
 }

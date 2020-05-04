@@ -14,6 +14,14 @@ public class TennisGame {
                 return "Advantage for Player One";
             }
 
+            if(gameWonByPlayerOneAfterAdvantage()) {
+                return "Player one won";
+            }
+
+            if(gameWonByPlayerTwoAfterAdvantage()) {
+                return "Player two won";
+            }
+
             return "Advantage for Player Two";
         }
 
@@ -24,6 +32,14 @@ public class TennisGame {
         }
 
         return playerOneScore > 0 || playerTwoScore > 0 ? buildResultString() : "Love all";
+    }
+
+    private boolean gameWonByPlayerTwoAfterAdvantage() {
+        return playerTwoScore - playerOneScore == 2;
+    }
+
+    private boolean gameWonByPlayerOneAfterAdvantage() {
+        return playerOneScore - playerTwoScore == 2;
     }
 
 
