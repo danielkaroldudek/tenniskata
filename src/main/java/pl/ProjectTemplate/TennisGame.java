@@ -5,15 +5,17 @@ public class TennisGame {
     private int playerTwoScore;
 
     public String getScore() {
+        if (isDeuce()) {
+            return "Deuce";
+        }
+
         if (playerOneScore > 3) {
             return "Player one won";
         } else if (playerTwoScore > 3) {
             return "Player two won";
         }
 
-        String scoreString = convertScoreToString(playerOneScore) + "," + convertScoreToString(playerTwoScore);
-
-        return playerOneScore > 0 || playerTwoScore > 0 ? scoreString : "Love all";
+        return playerOneScore > 0 || playerTwoScore > 0 ? buildResultString() : "Love all";
     }
 
     public void playerScore(PlayerNumber playerNumber) {
@@ -25,6 +27,14 @@ public class TennisGame {
                 playerTwoScore();
                 break;
         }
+    }
+
+    private String buildResultString() {
+        return convertScoreToString(playerOneScore) + "," + convertScoreToString(playerTwoScore);
+    }
+
+    private boolean isDeuce() {
+        return playerOneScore == 3 && playerOneScore == playerTwoScore;
     }
 
     private void playerOneScore() {

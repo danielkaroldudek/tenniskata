@@ -75,7 +75,7 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
     }
 
     def "Second player win when scores four times"() {
-        given: "Sesond player scored four times"
+        given: "Second player scored four times"
             tennisGame.playerScore(PlayerNumber.TWO)
             tennisGame.playerScore(PlayerNumber.TWO)
             tennisGame.playerScore(PlayerNumber.TWO)
@@ -84,5 +84,20 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
             checkScore()
         then: "I should get 'Player two won'"
             "Player two won" == result
+    }
+
+    def "Deuce state after each player scores three times"() {
+        given: "Player one scores three times"
+            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGame.playerScore(PlayerNumber.ONE)
+        and: "Player two scores three times"
+            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGame.playerScore(PlayerNumber.TWO)
+        when: "I check the score"
+            checkScore()
+        then: "I should get 'Deuce'"
+            "Deuce" == result
     }
 }
