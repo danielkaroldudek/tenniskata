@@ -5,16 +5,33 @@ public class TennisGame {
     private int playerTwoScore;
 
     public String getScore() {
+        if (playerOneScore > 3) {
+            return "Player one won";
+        } else if (playerTwoScore > 3) {
+            return "Player two won";
+        }
+
         String scoreString = convertScoreToString(playerOneScore) + "," + convertScoreToString(playerTwoScore);
 
         return playerOneScore > 0 || playerTwoScore > 0 ? scoreString : "Love all";
     }
 
-    public void playerOneScore() {
+    public void playerScore(PlayerNumber playerNumber) {
+        switch (playerNumber) {
+            case ONE:
+                playerOneScore();
+                break;
+            case TWO:
+                playerTwoScore();
+                break;
+        }
+    }
+
+    private void playerOneScore() {
         playerOneScore++;
     }
 
-    public void playerTwoScore() {
+    private void playerTwoScore() {
         playerTwoScore++;
     }
 
@@ -33,3 +50,4 @@ public class TennisGame {
         }
     }
 }
+
