@@ -1,10 +1,10 @@
-package pl.ProjectTemplate;
+package pl.TennisKata.Domain;
 
-public class TennisGame {
+class TennisGame {
     private int playerOneScore;
     private int playerTwoScore;
 
-    public String getScore() {
+    String getScore() {
         if (isDeuce()) {
             return "Deuce";
         }
@@ -42,8 +42,7 @@ public class TennisGame {
         return playerOneScore - playerTwoScore == 2;
     }
 
-
-    public void playerScore(PlayerNumber playerNumber) {
+    void playerScore(PlayerNumber playerNumber) {
         switch (playerNumber) {
             case ONE:
                 playerOneScore();

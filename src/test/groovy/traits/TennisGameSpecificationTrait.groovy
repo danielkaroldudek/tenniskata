@@ -1,16 +1,16 @@
 package traits
 
-import pl.ProjectTemplate.TennisGame
+import pl.TennisKata.Domain.TennisGameFacade
 
 trait TennisGameSpecificationTrait {
-    TennisGame tennisGame
+    TennisGameFacade tennisGameFacade
     String result
 
     def setup() {
-        tennisGame = new TennisGame()
+        tennisGameFacade = new TennisGameFacade()
     }
 
     def checkScore() {
-        result = tennisGame.getScore()
+        result = tennisGameFacade.getScore()
     }
 }

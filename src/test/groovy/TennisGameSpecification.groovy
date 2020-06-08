@@ -1,4 +1,3 @@
-import pl.ProjectTemplate.PlayerNumber
 import spock.lang.Specification
 import traits.TennisGameSpecificationTrait
 
@@ -13,7 +12,7 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "First player scores"() {
         given: "First player scores"
-            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGameFacade.playerScored(1)
         when: "I check the score"
             checkScore()
         then: "I should get 'Fifteen,Love' as an output"
@@ -22,7 +21,7 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "Second player scores"() {
         given: "Second player scores"
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Love,Fifteen' as an output"
@@ -31,8 +30,8 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "Second player scores twice"() {
         given: "Second player scores twice"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Love,Thirty' as an output"
@@ -41,9 +40,9 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "Second player scores three times"() {
         given: "Second player scores three times"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Love,Forty' as an output"
@@ -52,10 +51,10 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "First player scores once and second player scores twice"() {
         given: "Second player scores once"
-            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGameFacade.playerScored(1)
         and: "Player two scores twice"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Fifteen,Thirty' as an output"
@@ -64,10 +63,10 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "First player win when scores four times"() {
         given: "First player scores four times"
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGameFacade.playerScored(1)
+            tennisGameFacade.playerScored(1)
+            tennisGameFacade.playerScored(1)
+            tennisGameFacade.playerScored(1)
         when: "I check the score"
             checkScore()
         then: "I should get 'Player one won'"
@@ -76,10 +75,10 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
 
     def "Second player win when scores four times"() {
         given: "Second player scored four times"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Player two won'"
@@ -98,22 +97,22 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
     }
 
     private void playerTwoWonThreeTimes() {
-        tennisGame.playerScore(PlayerNumber.TWO)
-        tennisGame.playerScore(PlayerNumber.TWO)
-        tennisGame.playerScore(PlayerNumber.TWO)
+        tennisGameFacade.playerScored(2)
+        tennisGameFacade.playerScored(2)
+        tennisGameFacade.playerScored(2)
     }
 
     private void playerOneWonThreeTimes() {
-        tennisGame.playerScore(PlayerNumber.ONE)
-        tennisGame.playerScore(PlayerNumber.ONE)
-        tennisGame.playerScore(PlayerNumber.ONE)
+        tennisGameFacade.playerScored(1)
+        tennisGameFacade.playerScored(1)
+        tennisGameFacade.playerScored(1)
     }
 
     def "Advantage for player one when he scores after deuce"() {
         given: "There was a deuce"
             deuce()
         when: "Player one scores once after deuce"
-            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGameFacade.playerScored(1)
         and: "I check the score"
             checkScore()
         then: "I should get 'Advantage for Player One'"
@@ -129,7 +128,7 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
         given: "There was a deuce"
             deuce()
         when: "Player two scores once after deuce"
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
         and: "I check the score"
             checkScore()
         then: "I should get 'Advantage for Player Two'"
@@ -140,8 +139,8 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
         given: "There was a deuce"
             deuce()
         and: "Player one scores twice"
-            tennisGame.playerScore(PlayerNumber.ONE)
-            tennisGame.playerScore(PlayerNumber.ONE)
+            tennisGameFacade.playerScored(1)
+            tennisGameFacade.playerScored(1)
         when: "I check the score"
             checkScore()
         then: "I should get 'Player one won'"
@@ -152,8 +151,8 @@ class TennisGameSpecification extends Specification implements TennisGameSpecifi
         given: "There was a deuce"
             deuce()
         and: "Player two scores twice"
-            tennisGame.playerScore(PlayerNumber.TWO)
-            tennisGame.playerScore(PlayerNumber.TWO)
+            tennisGameFacade.playerScored(2)
+            tennisGameFacade.playerScored(2)
         when: "I check the score"
             checkScore()
         then: "I should get 'Player one won'"
